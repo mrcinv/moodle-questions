@@ -3,3 +3,11 @@ Use [Python](http://www.python.org), [Octave](http://www.octave.org) or [Julia](
 
 The tools consist libraries and template programs, that generate a file in [Moodle-XML format](https://docs.moodle.org/29/en/Moodle_XML_format) ready to import in Moodle.
 
+## Instalation: Octave
+Add the directory (octave/) to your path
+
+```
+octave:1> addpath("/path/to/repo/octave")
+```
+
+Grab and modify an example and run it.
