@@ -1,18 +1,30 @@
+import sys
+
 def num_q(x,p=0.001):
+    """Return formatted string for numerical question, that can be included into
+    cloze type moodle question.
+    x ... correct answer, p ... precision
+    """
     return "{1:NUMERICAL:=%f:%f#Pravilno~%f:%f#Premalo natančen odgovor}" % (x,p,x,10*p) 
 
 def multi_q(answers):
+    """Return formatted string for multichoice question, that can be included into
+    cloze type moodle question.
+    answers is a list of pairs (question, percent)
+    """
     q  = "{1:MULTICHOICE:"
     for i in answers:
         q = q+"~%%%f%%%s\n" % (i[1],i[0])
     q = q+"}"
     return q
-# usage
-num_q(-1.2,0.001)
-
-import sys
 
 def multichoice_question(answers, name):
+    """
+    XML string for moodle multiple choice question.
+    answers ... a list of pairs (answer,fraction),
+              fraction tells how much percent is worth the answer 
+    name ... name of the question
+    """
     q  = """<question type="multichoice">
     <name>
       <text> %s </text>
@@ -51,7 +63,13 @@ def multichoice_question(answers, name):
     q = q + "</question>"
     return q
 
-def close_question(tekst, name):
+def cloze_question(tekst, name):
+    """
+    XML string for moodle cloze question.
+    tekst ... string with question in cloze format. (see
+         https://docs.moodle.org/29/en/Embedded_Answers_(Cloze)_question_type )
+    name ... name of the question
+    """
     q = """
   <question type="cloze">
     <name>
@@ -69,7 +87,14 @@ def close_question(tekst, name):
         """ % (name,tekst)
     return q
 
-def moodle_xml(name, questions, iostream=sys.stdout):
+def moodle_xml(name, questions, template_fun, category = '',iostream=sys.stdout):
+    """Write moodle xml file to be imported into Moodle.
+    name ... name of the category, where the questions will be put
+    questions ... list of strings containing xml code for the questions
+    template_fun ... cloze_question or multichoice_question
+    category ... optional upper category (default '')
+    iostream ... file handle or other IOStream (default STDOUT)
+    """
     iostream.write("""
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
@@ -82,6 +107,5 @@ def moodle_xml(name, questions, iostream=sys.stdout):
   </question>
     """)
     for i in range(len(questions)):
-        iostream.write(multichoice_question(questions[i], name+str(i)))
+        iostream.write(template_fun(questions[i], name+str(i)))
     iostream.write("</quiz>")
-print(multi_q([("12",50),("23",50),("34",-100)]))
