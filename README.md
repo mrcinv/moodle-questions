@@ -20,4 +20,5 @@ Grab and modify an example and run it.
 
 Put `python/moodle.py` where Python can find, grab and modify an example and run it. Examples are in the form of Python script and [jupyter notebook](http://www.jupyter.org).
 
-[Try it online on Binder](http://mybinder.org/repo/mrcinv/moodle-questions) 
+
+You can also [try notebook examples online on Binder](http://mybinder.org/repo/mrcinv/moodle-questions) 
