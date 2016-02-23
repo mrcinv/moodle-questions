@@ -101,7 +101,7 @@ def moodle_xml(name, questions, template_fun, category = '',iostream=sys.stdout)
 <!-- question: 0  -->
   <question type="category">
     <category>
-    <text>$course$/"""+name+"""</text>
+    <text>$course$/""" + category + name + """</text>
 
     </category>
   </question>
