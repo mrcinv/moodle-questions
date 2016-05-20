@@ -3,6 +3,7 @@
 ## writes quiz questions in moodle XML format to file named filename.
 
 function write_moodle_xml(filename,questions, name, code, category)
+  write_moodle_xml
 
   fh=fopen(filename,'wt');
                                 % xml vsebina
