@@ -1,17 +1,24 @@
-fh=fopen(filename,'wt');
-% xml vsebina
-xml = ["<?xml version=\"1.0\"?> \n \
+## Function write_moodle_xml(filename, questions, name, code, category)
+##
+## writes quiz questions in moodle XML format to file named filename.
+
+function write_moodle_xml(filename,questions, name, code, category)
+
+  fh=fopen(filename,'wt');
+                                % xml vsebina
+
+  xml = ["<?xml version=\"1.0\"?> \n \
 <quiz> \n \
   <question type=\"category\"> \n \
-    <category><text>$course$/.koda</text></category> \n  \
+    <category><text>$course$/.code</text></category> \n  \
   </question> \n  \
 \n  \
 <!-- question: 1  --> \n \
   <question type=\"description\"> \n \
-      <name><text> ", kategorija, " \n \
+      <name><text> ", category, " \n \
       </text></name> \n \
     <questiontext format=\"html\"> \n \
-	<text><![CDATA[<pre>", koda, "</pre>]]></text>\n \
+	<text><![CDATA[<pre>", code, "</pre>]]></text>\n \
     </questiontext>\n \
     <image></image>\n \
     <generalfeedback><text></text></generalfeedback>\n \
@@ -19,10 +26,10 @@ xml = ["<?xml version=\"1.0\"?> \n \
     <hidden>0</hidden><shuffleanswers>0</shuffleanswers>\n \
 </question>\n \
   <question type=\"category\">\n \
-      <category><text>$course$/",kategorija, "</text></category>\n \
+      <category><text>$course$/",category, "</text></category>\n \
   </question>\n\n"];
-  
-q_format = ["<!-- question: %d    -->\n \
+
+  q_format = ["<!-- question: %d    -->\n \
   <question type=\"cloze\">\n \
       <name><text>%s %d</text></name>\n \
     <questiontext>\n \
@@ -30,9 +37,10 @@ q_format = ["<!-- question: %d    -->\n \
     </questiontext>\n \
     <shuffleanswers>0</shuffleanswers>\n \
 </question>\n"];
-% zaporedna vprašanja
-for i = 1:st_vprasanj 
-    xml = [xml sprintf(q_format,i,ime,i, besedilo(i,:))];
+num_of_questions = size(questions,1); 
+%% zaporedna vprašanja
+for i = 1:num_of_questions
+    xml = [xml sprintf(q_format,i,name,i, questions(i,:))];
 end
 xml = [xml "\n</quiz>"];
 fwrite(fh,xml);
