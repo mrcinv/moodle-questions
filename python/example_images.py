@@ -10,8 +10,7 @@
 
 get_ipython().magic('pylab inline')
 from moodle import *
-print(num_q(-1.2,0.001))
-print(multi_q([("12",50),("23",50),("34",-100)]))
+num_q(-1.2,0.001), multi_q([("12",50),("23",50),("34",-100)])
 
 
 # ## Question parameters
@@ -19,7 +18,6 @@ print(multi_q([("12",50),("23",50),("34",-100)]))
 
 # In[2]:
 
-ime ="funkcija_graf"
 from scipy.interpolate import interp1d
 
 x0 = sort(hstack((array([0,1]),rand(2)/2+0.25)))
@@ -32,13 +30,16 @@ parameters  = [fun + tuple(random_points(fun[1],fun[2])) for fun in functions]
 parameters
 
 
-# ## Text function
+# ## Question body
 # Write the function, that generates the text of the question. You can use the following syntax to add different inputs to 
 # question string `q`:
 #   
-#   * value of the variable: `q = q + str(x)`
-#   * expressions: `q = q + str(1+2*x)`
-#   * answer input field: `q = q + (num_q(answer, precision))`  
+#   * value of a variable: `q = q + str(x)`
+#   * Python expressions: `q = q + str(1+2*x)`
+#   * answer input field: `q = q + num_q(correct_answer, precision)`  
+#   
+# ###  Note on embedding images
+# Images can be embeded in question text in the form of BASE64 encoded string via `<img src="data:image/base64,..."/>` tag. To save [matplotlib](http://www.matplotlib.org) image as an encoded string, one has to use `io.BytesIO` virtual bytes stream.
 
 # In[3]:
 
@@ -79,16 +80,20 @@ from IPython.display import HTML
 HTML(question_text(parameters[0]))
 
 
+# ## Write to file
+
 # In[5]:
 
 # Write the questions to a file
-name = "read from graph"
+name = "read_from_graph"
+category  = 'functions/graph/'
 questions = []
 for param in parameters:
     b = question_text(param)
     questions.append(b)
 file = open(name + ".xml","w",encoding="utf8")
-moodle_xml(name,questions,cloze_question,category = 'functions/graph/', iostream = file)
+# Write to Moodle xml file
+moodle_xml(name,questions, cloze_question, category = category, iostream = file)
 file.close()
 print("Questions were saved in " + name + ".xml, that can be imported into Moodle")
 
