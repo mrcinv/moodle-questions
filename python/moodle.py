@@ -5,7 +5,7 @@ def num_q(x,p=0.001):
     cloze type moodle question.
     x ... correct answer, p ... precision
     """
-    return "{1:NUMERICAL:=%f:%f#Pravilno~%f:%f#Premalo natančen odgovor}" % (x,p,x,10*p) 
+    return "{1:NUMERICAL:=%f:%f#Pravilno~%f:%f#Premalo pravilnih decimalk}" % (x,p,x,10*p) 
 
 def multi_q(answers):
     """Return formatted string for multichoice question, that can be included into
