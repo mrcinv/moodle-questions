@@ -42,13 +42,13 @@ def multichoice_question(answers, name):
     <shuffleanswers>true</shuffleanswers>
     <answernumbering>abc</answernumbering>
     <correctfeedback format="html">
-      <text>Vaš odgovor je pravilen.</text>
+      <text>Odgovor je pravilen.</text>
     </correctfeedback>
     <partiallycorrectfeedback format="html">
-      <text>Vaš odgovor je delno pravilen.</text>
+      <text>Odgovor je delno pravilen.</text>
     </partiallycorrectfeedback>
     <incorrectfeedback format="html">
-      <text>Vaš odgovor je napačen.</text>
+      <text>Odgovor je nepravilen.</text>
     </incorrectfeedback>
     <shownumcorrect/>""" %name
     for answer in answers:
