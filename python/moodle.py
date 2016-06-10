@@ -63,7 +63,7 @@ def multichoice_question(answers, name):
     q = q + "</question>"
     return q
 
-def cloze_question(tekst, name):
+def cloze_question(tekst, name, feedback=''):
     """
     XML string for moodle cloze question.
     tekst ... string with question in cloze format. (see
@@ -79,12 +79,12 @@ def cloze_question(tekst, name):
         <text><![CDATA[%s]]></text>
     </questiontext>
     <generalfeedback format="html">
-      <text></text>
+      <text>%s</text>
     </generalfeedback>
     <penalty>0.2000000</penalty>
     <hidden>0</hidden>
   </question>
-        """ % (name,tekst)
+        """ % (name,tekst,feedback)
     return q
 
 def moodle_xml(name, questions, template_fun, category = '',iostream=sys.stdout):
